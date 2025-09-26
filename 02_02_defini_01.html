@@ -1,385 +1,390 @@
 <!DOCTYPE html>
-<!--
-Created using JS Bin
-http://jsbin.com
 
-Copyright (c) 2025 by anonymous (http://jsbin.com/xekeqoroyo/11/edit)
-
-Released under the MIT license: http://jsbin.mit-license.org
--->
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex" />
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài Tập Tiếng Pháp Tương Tác</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Définis</title>
     <style>
-        /* CSS CHUNG CHO TOÀN BỘ TRANG */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding-top: 0; 
-            background-color: #e9eff5;
-            color: #333;
-        }
+      /* CSS CHUNG CHO TOÀN BỘ TRANG */
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding-top: 0;
+        background-color: #e9eff5;
+        color: #333;
+      }
 
-        .top-info {
-            max-width: 800px;
-            margin: 20px auto 10px auto;
-            padding: 0 20px;
-            font-size: 0.9em;
-            color: #555;
-            text-align: right;
-        }
+      /* ĐÃ SỬA: Tên giáo viên sang trái */
+      .top-info {
+        max-width: 800px;
+        margin: 20px auto 10px auto;
+        padding: 0 20px;
+        font-size: 0.9em;
+        color: #555;
+        text-align: left; /* ĐÃ SỬA: Căn lề trái */
+      }
 
-        .main-header {
-            background-color: #ffffff;
-            padding: 15px 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            z-index: 1000;
-            text-align: center;
-            position: -webkit-sticky;
-            position: sticky;
-            top: 0;
-            width: 100%;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+      /* ĐÃ SỬA: Header không sticky, giới hạn chiều rộng và căn giữa */
+      .main-header {
+        background-color: #ffffff;
+        padding: 15px 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 900; /* z-index thấp hơn thanh ký tự */
+        text-align: center;
+        /* ĐÃ LOẠI BỎ: position: sticky; top: 0; */
+        width: 100%;
+        max-width: 800px; /* ĐÃ THÊM: Giới hạn chiều rộng bằng content-container */
+        margin: 0 auto; /* ĐÃ THÊM: Căn giữa */
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-        .main-header h1 {
-            color: #2c3e50;
-            margin: 0;
-            font-size: 2em;
-            font-weight: 600;
-            order: 1;
-        }
+      .main-header h1 {
+        color: #2c3e50;
+        margin: 0;
+        font-size: 2em;
+        font-weight: 600;
+        order: 1;
+      }
 
-        .main-header .instructions {
-            font-size: 1.1em;
-            margin-top: 8px;
-            margin-bottom: 0;
-            font-style: italic;
-            border-bottom: 1px solid #dcdcdc;
-            padding-bottom: 8px;
-            width: 85%;
-            margin: 8px auto 0 auto;
-            color: #555;
-            order: 2;
-        }
+      .main-header .instructions {
+        font-size: 1.1em;
+        margin-top: 8px;
+        margin-bottom: 0;
+        font-style: italic;
+        border-bottom: 1px solid #dcdcdc;
+        padding-bottom: 8px;
+        width: 85%;
+        margin: 8px auto 0 auto;
+        color: #555;
+        order: 2;
+      }
 
-        .char-buttons-container {
-            width: 100%;
-            padding: 10px 0 5px 0;
-            background-color: #f0f3f6;
-            border-radius: 0 0 5px 5px;
-            text-align: center;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
-            margin-top: 15px;
-            order: 3;
-        }
+      /* ĐÃ SỬA: Chỉ thanh ký tự đặc biệt là sticky */
+      .char-buttons-container {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0; /* Gắn vào đỉnh trang */
+        z-index: 1000; /* Đảm bảo nó luôn ở trên cùng */
 
-        .char-button {
-            background-color: #e2e6ea;
-            border: 1px solid #d1d6db;
-            padding: 6px 10px;
-            margin: 3px;
-            cursor: pointer;
-            font-size: 1.2em;
-            font-weight: normal;
-            border-radius: 4px;
-            transition: background-color 0.2s ease, transform 0.1s ease;
-        }
+        width: 100%;
+        max-width: 800px; /* ĐÃ THÊM: Giới hạn chiều rộng bằng content-container */
+        margin: 0 auto; /* ĐÃ THÊM: Căn giữa */
+        box-sizing: border-box;
 
-        .char-button:hover {
-            background-color: #cdd2d7;
-            transform: translateY(-1px);
-        }
+        padding: 10px 0 5px 0;
+        background-color: #f0f3f6;
+        border-radius: 0 0 5px 5px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ĐÃ SỬA: Đổ bóng rõ hơn khi sticky */
+        /* ĐÃ LOẠI BỎ: margin-top: 15px; order: 3; */
+      }
 
-        .char-button:active {
-            transform: translateY(0);
-        }
+      .char-button {
+        background-color: #e2e6ea;
+        border: 1px solid #d1d6db;
+        padding: 6px 10px;
+        margin: 3px;
+        cursor: pointer;
+        font-size: 1.2em;
+        font-weight: normal;
+        border-radius: 4px;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+      }
 
-        /* Container cho nội dung bài tập */
-        .content-container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 0 20px;
-            text-align: left;
-        }
+      .char-button:hover {
+        background-color: #cdd2d7;
+        transform: translateY(-1px);
+      }
 
-        /* Phần ví dụ */
-        .example-section {
-            background-color: #f7f7f7;
-            padding: 18px;
-            border-left: 5px solid #007bff;
-            border-radius: 5px;
-            margin-bottom: 30px;
-            font-size: 1.05em;
-            text-align: left;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
+      .char-button:active {
+        transform: translateY(0);
+      }
 
-        .example-text {
-            margin-bottom: 5px;
-        }
+      /* Container cho nội dung bài tập */
+      .content-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 0 20px;
+        text-align: left;
+      }
 
-        .example-text strong {
-            color: #007bff;
-        }
+      /* Phần ví dụ */
+      .example-section {
+        background-color: #f7f7f7;
+        padding: 18px;
+        border-left: 5px solid #007bff;
+        border-radius: 5px;
+        margin-bottom: 30px;
+        font-size: 1.05em;
+        text-align: left;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
 
-        .example-line {
-            display: inline;
-        }
+      .example-text {
+        margin-bottom: 5px;
+      }
 
-        .example-line input {
-            width: 150px !important; /* Chiều rộng ô input ví dụ */
-            margin: 0 5px;
-            background-color: #e9ecef;
-            border: 1px dashed #adb5bd;
-            color: #495057;
-        }
+      .example-text strong {
+        color: #007bff;
+      }
 
-        /* Từng câu hỏi trong bài tập */
-        .exercise-item {
-            margin-bottom: 25px;
-            padding: 15px;
-            border: 1px solid #d1e0f0;
-            border-radius: 8px;
-            background-color: #ffffff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-            display: block;
-            width: 100%;
-            box-sizing: border-box;
-            text-align: left;
-            transition: transform 0.2s ease;
-        }
+      .example-line {
+        display: inline;
+      }
 
-        .exercise-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+      .example-line input {
+        width: 150px !important; /* Chiều rộng ô input ví dụ */
+        margin: 0 5px;
+        background-color: #e9ecef;
+        border: 1px dashed #adb5bd;
+        color: #495057;
+      }
 
-        .prompt-text {
-            font-size: 1.1em;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: #34495e;
-            display: inline;
-        }
+      /* Từng câu hỏi trong bài tập */
+      .exercise-item {
+        margin-bottom: 25px;
+        padding: 15px;
+        border: 1px solid #d1e0f0;
+        border-radius: 8px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: left;
+        transition: transform 0.2s ease;
+      }
 
-        .question-line {
-            display: block;
-            margin-bottom: 5px;
-        }
+      .exercise-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
 
-        .question-line input[type="text"] {
-            width: 80px; /* Điều chỉnh chiều rộng ô input cho articles */
-            padding: 8px 10px;
-            margin: 0 5px;
-            border: 1px solid #a3c1e0;
-            border-radius: 5px;
-            font-size: 1.05em;
-            box-sizing: border-box;
-            display: inline-block;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
+      .prompt-text {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: #34495e;
+        display: inline;
+      }
 
-        .question-line input[type="text"]:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-            outline: none;
-        }
+      .question-line {
+        display: block;
+        margin-bottom: 5px;
+      }
 
-        .vietnamese-translation {
-            font-size: 0.9em;
-            color: #7f8c8d;
-            margin-top: 8px;
-            margin-bottom: 12px;
-            font-style: italic;
-            display: block;
-        }
+      .question-line input[type="text"] {
+        width: 80px; /* Điều chỉnh chiều rộng ô input cho articles */
+        padding: 8px 10px;
+        margin: 0 5px;
+        border: 1px solid #a3c1e0;
+        border-radius: 5px;
+        font-size: 1.05em;
+        box-sizing: border-box;
+        display: inline-block;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
 
-        .check-button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.1s ease;
-            margin-top: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+      .question-line input[type="text"]:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        outline: none;
+      }
 
-        .check-button:hover {
-            background-color: #45a049;
-            transform: translateY(-1px);
-        }
+      .vietnamese-translation {
+        font-size: 0.9em;
+        color: #7f8c8d;
+        margin-top: 8px;
+        margin-bottom: 12px;
+        font-style: italic;
+        display: block;
+      }
 
-        .check-button:active {
-            transform: translateY(0);
-        }
+      .check-button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+        margin-top: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
 
-        .feedback {
-            margin-top: 15px;
-            font-weight: bold;
-            display: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            text-align: center;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
+      .check-button:hover {
+        background-color: #45a049;
+        transform: translateY(-1px);
+      }
 
-        .feedback.correct {
-            color: #1a7e3d;
-            background-color: #d4edda;
-            border: 1px solid #1a7e3d;
-        }
+      .check-button:active {
+        transform: translateY(0);
+      }
 
-        .feedback.incorrect {
-            color: #b52b2b;
-            background-color: #f8d7da;
-            border: 1px solid #b52b2b;
-        }
+      .feedback {
+        margin-top: 15px;
+        font-weight: bold;
+        display: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-align: center;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
 
-        .feedback.warning {
-            color: #d19a00;
-            background-color: #fff3cd;
-            border: 1px solid #d19a00;
-        }
+      .feedback.correct {
+        color: #1a7e3d;
+        background-color: #d4edda;
+        border: 1px solid #1a7e3d;
+      }
 
-        .note {
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 40px;
-            border-left: 3px solid #ccc;
-            padding-left: 10px;
-        }
+      .feedback.incorrect {
+        color: #b52b2b;
+        background-color: #f8d7da;
+        border: 1px solid #b52b2b;
+      }
+
+      .feedback.warning {
+        color: #d19a00;
+        background-color: #fff3cd;
+        border: 1px solid #d19a00;
+      }
+
+      .note {
+        font-size: 0.9em;
+        color: #666;
+        margin-top: 40px;
+        border-left: 3px solid #ccc;
+        padding-left: 10px;
+      }
     </style>
-</head>
-<body>
-    <div class="top-info">
-        Enseignant: Nguyễn Hoàng Vũ <br>
-        Date: 25 Juin 2025
-    </div>
+  </head>
+  <body>
+    <div class="top-info">Enseignant: Nguyễn Hoàng Vũ <br /></div>
 
     <div class="main-header">
-        <h1 id="exercise-title"></h1>
-        <p class="instructions" id="exercise-instructions"></p>
-        
-        <div class="char-buttons-container">
-            <button class="char-button" onclick="insertChar('é')">é</button>
-            <button class="char-button" onclick="insertChar('è')">è</button>
-            <button class="char-button" onclick="insertChar('ê')">ê</button>
-            <button class="char-button" onclick="insertChar('ë')">ë</button>
-            <button class="char-button" onclick="insertChar('à')">à</button>
-            <button class="char-button" onclick="insertChar('â')">â</button>
-            <button class="char-button" onclick="insertChar('ç')">ç</button>
-            <button class="char-button" onclick="insertChar('ù')">ù</button>
-            <button class="char-button" onclick="insertChar('û')">û</button>
-            <button class="char-button" onclick="insertChar('ï')">ï</button>
-            <button class="char-button" onclick="insertChar('î')">î</button>
-            <button class="char-button" onclick="insertChar('ô')">ô</button>
-            <button class="char-button" onclick="insertChar('œ')">œ</button>
-            <button class="char-button" onclick="insertChar('\'')">'</button>
-        </div>
+      <h1 id="exercise-title"></h1>
+      <p class="instructions" id="exercise-instructions"></p>
     </div>
 
-    <div class="content-container" id="exercise-content-area">
-        </div>
+    <div class="char-buttons-container">
+      <button class="char-button" onclick="insertChar('é')">é</button>
+      <button class="char-button" onclick="insertChar('è')">è</button>
+      <button class="char-button" onclick="insertChar('ê')">ê</button>
+      <button class="char-button" onclick="insertChar('ë')">ë</button>
+      <button class="char-button" onclick="insertChar('à')">à</button>
+      <button class="char-button" onclick="insertChar('â')">â</button>
+      <button class="char-button" onclick="insertChar('ç')">ç</button>
+      <button class="char-button" onclick="insertChar('ù')">ù</button>
+      <button class="char-button" onclick="insertChar('û')">û</button>
+      <button class="char-button" onclick="insertChar('ï')">ï</button>
+      <button class="char-button" onclick="insertChar('î')">î</button>
+      <button class="char-button" onclick="insertChar('ô')">ô</button>
+      <button class="char-button" onclick="insertChar('œ')">œ</button>
+      <button class="char-button" onclick="insertChar('\'')">'</button>
+    </div>
+
+    <div class="content-container" id="exercise-content-area"></div>
     <script>
-        // === BIẾN TOÀN CỤC VÀ HÀM CHÈN KÝ TỰ ===
-        let activeInput = null;
+      // === BIẾN TOÀN CỤC VÀ HÀM CHÈN KÝ TỰ ===
+      let activeInput = null;
 
-        document.addEventListener('mousedown', (event) => {
-            if (event.target.tagName === 'INPUT' && event.target.type === 'text') {
-                activeInput = event.target;
-            } else if (!event.target.classList.contains('char-button')) {
-                activeInput = null;
-            }
-        });
+      document.addEventListener("mousedown", (event) => {
+        if (event.target.tagName === "INPUT" && event.target.type === "text") {
+          activeInput = event.target;
+        } else if (!event.target.classList.contains("char-button")) {
+          activeInput = null;
+        }
+      });
 
-        function insertChar(char) {
-            if (activeInput) {
-                const start = activeInput.selectionStart;
-                const end = activeInput.selectionEnd;
-                const value = activeInput.value;
+      function insertChar(char) {
+        if (activeInput) {
+          const start = activeInput.selectionStart;
+          const end = activeInput.selectionEnd;
+          const value = activeInput.value;
 
-                activeInput.value = value.substring(0, start) + char + value.substring(end);
-                
-                activeInput.selectionStart = activeInput.selectionEnd = start + char.length;
-                
-                activeInput.focus();
-            } else {
-                alert('Vui lòng click vào ô bạn muốn điền trước khi chọn ký tự! (Please click on the input field you want to fill before selecting a character!)');
-            }
+          activeInput.value =
+            value.substring(0, start) + char + value.substring(end);
+
+          activeInput.selectionStart = activeInput.selectionEnd =
+            start + char.length;
+
+          activeInput.focus();
+        } else {
+          alert(
+            "Vui lòng click vào ô bạn muốn điền trước khi chọn ký tự! (Please click on the input field you want to fill before selecting a character!)"
+          );
+        }
+      }
+
+      // === HÀM KIỂM TRA ĐÁP ÁN (checkMultipleAnswersDynamic) ===
+      function checkMultipleAnswersDynamic(...args) {
+        const feedbackId = args[args.length - 1];
+        const feedbackElement = document.getElementById(feedbackId);
+
+        let allInputsFilled = true;
+        let allAnswersCorrect = true;
+        let incorrectAnswers = [];
+
+        // Lặp qua các cặp inputId và correctAnswer
+        for (let i = 0; i < args.length - 1; i += 2) {
+          const inputId = args[i];
+          const correctAnswer = args[i + 1];
+
+          const inputElement = document.getElementById(inputId);
+          const userAnswer = inputElement.value.trim().toLowerCase();
+          const cleanCorrectAnswer = correctAnswer.toLowerCase().trim();
+
+          if (userAnswer === "") {
+            allInputsFilled = false;
+          }
+
+          let isCurrentCorrect =
+            userAnswer === cleanCorrectAnswer ||
+            userAnswer === cleanCorrectAnswer.replace("'", "") ||
+            userAnswer ===
+              cleanCorrectAnswer.replace("'", " ").replace(/\s/g, "");
+
+          if (!isCurrentCorrect) {
+            allAnswersCorrect = false;
+            incorrectAnswers.push({
+              inputNum: i / 2 + 1,
+              correct: correctAnswer,
+            });
+          }
         }
 
-        // === HÀM KIỂM TRA ĐÁP ÁN (checkMultipleAnswersDynamic - đã được cải tiến để linh hoạt) ===
-        function checkMultipleAnswersDynamic(...args) {
-            const feedbackId = args[args.length - 1];
-            const feedbackElement = document.getElementById(feedbackId);
+        feedbackElement.classList.remove("correct", "incorrect", "warning");
+        feedbackElement.style.display = "block";
 
-            let allInputsFilled = true;
-            let allAnswersCorrect = true;
-            let incorrectAnswers = [];
-
-            // Lặp qua các cặp inputId và correctAnswer
-            for (let i = 0; i < args.length - 1; i += 2) {
-                const inputId = args[i];
-                const correctAnswer = args[i + 1];
-
-                const inputElement = document.getElementById(inputId);
-                const userAnswer = inputElement.value.trim().toLowerCase();
-                const cleanCorrectAnswer = correctAnswer.toLowerCase().trim(); 
-
-                if (userAnswer === '') {
-                    allInputsFilled = false;
-                }
-
-                let isCurrentCorrect = (
-                    userAnswer === cleanCorrectAnswer ||
-                    userAnswer === cleanCorrectAnswer.replace("'", "") || 
-                    userAnswer === cleanCorrectAnswer.replace("'", " ").replace(/\s/g, '') 
-                );
-
-                if (!isCurrentCorrect) {
-                    allAnswersCorrect = false;
-                    incorrectAnswers.push({
-                        inputNum: (i / 2) + 1, 
-                        correct: correctAnswer
-                    });
-                }
-            }
-
-            feedbackElement.classList.remove('correct', 'incorrect', 'warning');
-            feedbackElement.style.display = 'block';
-
-            if (!allInputsFilled) {
-                feedbackElement.textContent = 'Bạn cần điền vào tất cả các ô trống trước khi kiểm tra! (Please fill in all blanks before checking!)';
-                feedbackElement.classList.add('warning');
-            } else if (allAnswersCorrect) {
-                feedbackElement.textContent = 'Chính xác! (Correct!)';
-                feedbackElement.classList.add('correct');
-            } else {
-                let feedbackText = 'Chưa đúng. ';
-                incorrectAnswers.forEach((item, index) => {
-                    feedbackText += `Ô ${item.inputNum}: "${item.correct}". `;
-                });
-                feedbackText += ` (Incorrect. Please check your answers.)`;
-                feedbackElement.classList.add('incorrect');
-                feedbackElement.textContent = feedbackText;
-            }
+        if (!allInputsFilled) {
+          feedbackElement.textContent =
+            "Bạn cần điền vào tất cả các ô trống trước khi kiểm tra! (Please fill in all blanks before checking!)";
+          feedbackElement.classList.add("warning");
+        } else if (allAnswersCorrect) {
+          feedbackElement.textContent = "Chính xác! (Correct!)";
+          feedbackElement.classList.add("correct");
+        } else {
+          let feedbackText = "Chưa đúng. ";
+          incorrectAnswers.forEach((item, index) => {
+            feedbackText += `Ô ${item.inputNum}: "${item.correct}". `;
+          });
+          feedbackText += ` (Incorrect. Please check your answers.)`;
+          feedbackElement.classList.add("incorrect");
+          feedbackElement.textContent = feedbackText;
         }
+      }
 
-        // === ĐỊNH NGHĨA NỘI DUNG CỦA TỪNG BÀI TẬP RIÊNG BIỆT DƯỚI DẠNG CHUỖI HTML ===
+      // === ĐỊNH NGHĨA NỘI DUNG CỦA TỪNG BÀI TẬP RIÊNG BIỆT DƯỚI DẠNG CHUỖI HTML ===
 
-        // Bài tập 1: AVOIR (Affirmative & Négative)
-        const exerciseContent_AVOIR_AffirmativeNegative = `
+      // Bài tập 1: AVOIR (Affirmative & Négative)
+      const exerciseContent_AVOIR_AffirmativeNegative = `
             <div class="example-section">
                 <strong>Exemple (Ví dụ):</strong>
                 <div class="example-text">
@@ -453,8 +458,8 @@ Released under the MIT license: http://jsbin.mit-license.org
             </p>
         `;
 
-        // Bài tập 2: Articles Indéfinis (un, une, des)
-        const exerciseContent_ArticlesIndefinis = `
+      // Bài tập 2: Articles Indéfinis (un, une, des)
+      const exerciseContent_ArticlesIndefinis = `
             <div class="example-section">
                 <strong>Exemple (Ví dụ):</strong>
                 <div class="example-text">
@@ -569,8 +574,8 @@ Released under the MIT license: http://jsbin.mit-license.org
             </p>
         `;
 
-        // Bài tập 3: C'est / Il est (Elle est...)
-        const exerciseContent_CestIlEst = `
+      // Bài tập 3: C'est / Il est (Elle est...)
+      const exerciseContent_CestIlEst = `
             <div class="example-section">
                 <strong>Modèle (Mẫu):</strong>
                 <div class="example-line">
@@ -661,9 +666,9 @@ Released under the MIT license: http://jsbin.mit-license.org
                 - Câu 2: Sử dụng <strong>Il/Elle est + tính từ</strong> (đảm bảo tính từ phù hợp giống/số với danh từ).
             </p>
         `;
-        
-        // Bài tập 4: ÊTRE và AVOIR ở thì hiện tại
-        const exerciseContent_ETRE_AVOIR_Present = `
+
+      // Bài tập 4: ÊTRE và AVOIR ở thì hiện tại
+      const exerciseContent_ETRE_AVOIR_Present = `
             <div class="example-section">
                 <strong>Exemple (Ví dụ):</strong>
                 <div class="example-text">
@@ -789,8 +794,8 @@ Released under the MIT license: http://jsbin.mit-license.org
             </p>
         `;
 
-        // Bài tập 5: Articles Définis (le, la, les) - BÀI TẬP MỚI NHẤT BẠN VỪA GỬI HÌNH
-        const exerciseContent_ArticlesDefinis = `
+      // Bài tập 5: Articles Définis (le, la, les) - BÀI TẬP MỚI NHẤT BẠN VỪA GỬI HÌNH
+      const exerciseContent_ArticlesDefinis = `
             <div class="example-section">
                 <strong>Exemple (Ví dụ):</strong>
                 <div class="example-text">
@@ -869,52 +874,64 @@ Released under the MIT license: http://jsbin.mit-license.org
             </p>
         `;
 
+      // Hàm để tải bài tập vào vùng nội dung chính
+      function loadExercise(exerciseName) {
+        const contentArea = document.getElementById("exercise-content-area");
+        const titleElement = document.getElementById("exercise-title");
+        const instructionsElement = document.getElementById(
+          "exercise-instructions"
+        );
 
-        // Hàm để tải bài tập vào vùng nội dung chính
-        function loadExercise(exerciseName) {
-            const contentArea = document.getElementById('exercise-content-area');
-            const titleElement = document.getElementById('exercise-title');
-            const instructionsElement = document.getElementById('exercise-instructions');
-            
-            contentArea.innerHTML = ''; // Xóa nội dung bài tập cũ
+        contentArea.innerHTML = ""; // Xóa nội dung bài tập cũ
 
-            switch (exerciseName) {
-                case 'AVOIR_AffirmativeNegative':
-                    titleElement.innerHTML = 'Exercice : AVOIR (Affirmative & Négative)';
-                    instructionsElement.innerHTML = 'Écrire le premier verbe à la forme affirmative et le deuxième verbe à la forme négative.<br><em>(Chia động từ đầu tiên ở thể khẳng định và động từ thứ hai ở thể phủ định.)</em>';
-                    contentArea.innerHTML = exerciseContent_AVOIR_AffirmativeNegative;
-                    break;
-                case 'ArticlesIndefinis':
-                    titleElement.innerHTML = 'Exercice : Articles Indéfinis (un, une, des)';
-                    instructionsElement.innerHTML = 'Mettre l\'article indéfini <strong>un, une</strong> ou <strong>des</strong>.<br><em>(Điền mạo từ không xác định un, une hoặc des.)</em>';
-                    contentArea.innerHTML = exerciseContent_ArticlesIndefinis;
-                    break;
-                case 'CestIlEst':
-                    titleElement.innerHTML = 'Exercice : C\'est + Nom / Il est + Adjectif';
-                    instructionsElement.innerHTML = 'Faites deux phrases comme le modèle en utilisant les mots donnés.<br><em>(Hãy tạo hai câu theo mẫu bằng cách sử dụng các từ cho sẵn.)</em>';
-                    contentArea.innerHTML = exerciseContent_CestIlEst;
-                    break;
-                case 'ETRE_AVOIR_Present': 
-                    titleElement.innerHTML = 'Exercice : ÊTRE et AVOIR au Présent';
-                    instructionsElement.innerHTML = 'Écrire au présent. (Conjuguez les verbes **ÊTRE** et **AVOIR** au présent.)<br><em>(Chia động từ ở thì hiện tại.)</em>';
-                    contentArea.innerHTML = exerciseContent_ETRE_AVOIR_Present;
-                    break;
-                case 'ArticlesDefinis': // BÀI TẬP MỚI NHẤT
-                    titleElement.innerHTML = 'Exercice : Articles Définis (le, la, les)';
-                    instructionsElement.innerHTML = 'Mettre l\'article défini <strong>le, la</strong> ou <strong>les</strong>.<br><em>(Điền mạo từ xác định le, la hoặc les.)</em>';
-                    contentArea.innerHTML = exerciseContent_ArticlesDefinis;
-                    break;
-                default:
-                    titleElement.innerHTML = 'Chào mừng đến với Bài Tập Tiếng Pháp!';
-                    instructionsElement.innerHTML = 'Vui lòng chọn một bài tập từ menu hoặc chỉnh sửa mã để tải bài tập mặc định.';
-                    contentArea.innerHTML = '<p style="text-align: center; margin-top: 50px;">Bài tập không tồn tại hoặc chưa được chọn. Vui lòng kiểm tra tên bài tập.</p>';
-            }
+        switch (exerciseName) {
+          case "AVOIR_AffirmativeNegative":
+            titleElement.innerHTML =
+              "Exercice : AVOIR (Affirmative & Négative)";
+            instructionsElement.innerHTML =
+              "Écrire le premier verbe à la forme affirmative et le deuxième verbe à la forme négative.<br><em>(Chia động từ đầu tiên ở thể khẳng định và động từ thứ hai ở thể phủ định.)</em>";
+            contentArea.innerHTML = exerciseContent_AVOIR_AffirmativeNegative;
+            break;
+          case "ArticlesIndefinis":
+            titleElement.innerHTML =
+              "Exercice : Articles Indéfinis (un, une, des)";
+            instructionsElement.innerHTML =
+              "Mettre l'article indéfini <strong>un, une</strong> ou <strong>des</strong>.<br><em>(Điền mạo từ không xác định un, une hoặc des.)</em>";
+            contentArea.innerHTML = exerciseContent_ArticlesIndefinis;
+            break;
+          case "CestIlEst":
+            titleElement.innerHTML =
+              "Exercice : C'est + Nom / Il est + Adjectif";
+            instructionsElement.innerHTML =
+              "Faites deux phrases comme le modèle en utilisant les mots donnés.<br><em>(Hãy tạo hai câu theo mẫu bằng cách sử dụng các từ cho sẵn.)</em>";
+            contentArea.innerHTML = exerciseContent_CestIlEst;
+            break;
+          case "ETRE_AVOIR_Present":
+            titleElement.innerHTML = "Exercice : ÊTRE et AVOIR au Présent";
+            instructionsElement.innerHTML =
+              "Écrire au présent. (Conjuguez les verbes **ÊTRE** et **AVOIR** au présent.)<br><em>(Chia động từ ở thì hiện tại.)</em>";
+            contentArea.innerHTML = exerciseContent_ETRE_AVOIR_Present;
+            break;
+          case "ArticlesDefinis": // BÀI TẬP MỚI NHẤT
+            titleElement.innerHTML =
+              "Exercice : Articles Définis (le, la, les)";
+            instructionsElement.innerHTML =
+              "Mettre l'article défini <strong>le, la</strong> ou <strong>les</strong>.<br><em>(Điền mạo từ xác định le, la hoặc les.)</em>";
+            contentArea.innerHTML = exerciseContent_ArticlesDefinis;
+            break;
+          default:
+            titleElement.innerHTML = "Chào mừng đến với Bài Tập Tiếng Pháp!";
+            instructionsElement.innerHTML =
+              "Vui lòng chọn một bài tập từ menu hoặc chỉnh sửa mã để tải bài tập mặc định.";
+            contentArea.innerHTML =
+              '<p style="text-align: center; margin-top: 50px;">Bài tập không tồn tại hoặc chưa được chọn. Vui lòng kiểm tra tên bài tập.</p>';
         }
+      }
 
-        // Tải bài tập mặc định khi trang load: BÀI TẬP ARTICLES DÉFINIS (MỚI NHẤT)
-        document.addEventListener('DOMContentLoaded', () => {
-            loadExercise('ArticlesDefinis'); 
-        });
+      // Tải bài tập mặc định khi trang load: BÀI TẬP ARTICLES DÉFINIS (MỚI NHẤT)
+      document.addEventListener("DOMContentLoaded", () => {
+        loadExercise("ArticlesDefinis");
+      });
     </script>
-</body>
+  </body>
 </html>

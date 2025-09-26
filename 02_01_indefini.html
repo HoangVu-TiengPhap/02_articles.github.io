@@ -1,18 +1,10 @@
 <!DOCTYPE html>
-<!--
-Created using JS Bin
-http://jsbin.com
-
-Copyright (c) 2025 by anonymous (http://jsbin.com/xekeqoroyo/10/edit)
-
-Released under the MIT license: http://jsbin.mit-license.org
--->
 <meta name="robots" content="noindex">
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài Tập Tiếng Pháp Tương Tác</title>
+    <title>Indéfinis</title>
     <style>
         /* CSS CHUNG CHO TOÀN BỘ TRANG */
         body {
@@ -23,25 +15,27 @@ Released under the MIT license: http://jsbin.mit-license.org
             color: #333;
         }
 
+        /* ĐÃ SỬA: Tên giáo viên sang trái */
         .top-info {
             max-width: 800px;
             margin: 20px auto 10px auto;
             padding: 0 20px;
             font-size: 0.9em;
             color: #555;
-            text-align: right;
+            text-align: left; /* ĐÃ SỬA: Căn lề trái */
         }
 
+        /* ĐÃ SỬA: Header không sticky, giới hạn chiều rộng và căn giữa */
         .main-header {
             background-color: #ffffff;
             padding: 15px 20px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            z-index: 1000;
+            z-index: 900; /* z-index thấp hơn thanh ký tự */
             text-align: center;
-            position: -webkit-sticky;
-            position: sticky;
-            top: 0;
+            /* ĐÃ LOẠI BỎ: position: sticky; top: 0; */
             width: 100%;
+            max-width: 800px; /* ĐÃ THÊM: Giới hạn chiều rộng bằng content-container */
+            margin: 0 auto; /* ĐÃ THÊM: Căn giữa */
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -69,15 +63,24 @@ Released under the MIT license: http://jsbin.mit-license.org
             order: 2;
         }
 
+        /* ĐÃ SỬA: Chỉ thanh ký tự đặc biệt là sticky */
         .char-buttons-container {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0; /* Gắn vào đỉnh trang */
+            z-index: 1000; /* Đảm bảo nó luôn ở trên cùng */
+
             width: 100%;
+            max-width: 800px; /* ĐÃ THÊM: Giới hạn chiều rộng bằng content-container */
+            margin: 0 auto; /* ĐÃ THÊM: Căn giữa */
+            box-sizing: border-box;
+
             padding: 10px 0 5px 0;
             background-color: #f0f3f6;
             border-radius: 0 0 5px 5px;
             text-align: center;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
-            margin-top: 15px;
-            order: 3;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* ĐÃ SỬA: Đổ bóng rõ hơn khi sticky */
+            /* ĐÃ LOẠI BỎ: margin-top: 15px; order: 3; */
         }
 
         .char-button {
@@ -264,29 +267,29 @@ Released under the MIT license: http://jsbin.mit-license.org
 <body>
     <div class="top-info">
         Enseignant: Nguyễn Hoàng Vũ <br>
-        Date: 25 Juin 2025
+        
     </div>
 
     <div class="main-header">
         <h1 id="exercise-title"></h1>
         <p class="instructions" id="exercise-instructions"></p>
-        
-        <div class="char-buttons-container">
-            <button class="char-button" onclick="insertChar('é')">é</button>
-            <button class="char-button" onclick="insertChar('è')">è</button>
-            <button class="char-button" onclick="insertChar('ê')">ê</button>
-            <button class="char-button" onclick="insertChar('ë')">ë</button>
-            <button class="char-button" onclick="insertChar('à')">à</button>
-            <button class="char-button" onclick="insertChar('â')">â</button>
-            <button class="char-button" onclick="insertChar('ç')">ç</button>
-            <button class="char-button" onclick="insertChar('ù')">ù</button>
-            <button class="char-button" onclick="insertChar('û')">û</button>
-            <button class="char-button" onclick="insertChar('ï')">ï</button>
-            <button class="char-button" onclick="insertChar('î')">î</button>
-            <button class="char-button" onclick="insertChar('ô')">ô</button>
-            <button class="char-button" onclick="insertChar('œ')">œ</button>
-            <button class="char-button" onclick="insertChar('\'')">'</button>
-        </div>
+    </div>
+    
+    <div class="char-buttons-container">
+        <button class="char-button" onclick="insertChar('é')">é</button>
+        <button class="char-button" onclick="insertChar('è')">è</button>
+        <button class="char-button" onclick="insertChar('ê')">ê</button>
+        <button class="char-button" onclick="insertChar('ë')">ë</button>
+        <button class="char-button" onclick="insertChar('à')">à</button>
+        <button class="char-button" onclick="insertChar('â')">â</button>
+        <button class="char-button" onclick="insertChar('ç')">ç</button>
+        <button class="char-button" onclick="insertChar('ù')">ù</button>
+        <button class="char-button" onclick="insertChar('û')">û</button>
+        <button class="char-button" onclick="insertChar('ï')">ï</button>
+        <button class="char-button" onclick="insertChar('î')">î</button>
+        <button class="char-button" onclick="insertChar('ô')">ô</button>
+        <button class="char-button" onclick="insertChar('œ')">œ</button>
+        <button class="char-button" onclick="insertChar('\'')">'</button>
     </div>
 
     <div class="content-container" id="exercise-content-area">
